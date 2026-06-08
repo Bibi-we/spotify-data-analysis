@@ -14,7 +14,12 @@ print(df.dtypes) # data types of each column
 
 print(df.isnull().sum()) # missing values in each column
 
-print(df['popularity'].describe()) # summary statistics for the popularity column 
+# exploring the data further 
+print(df['popularity'].describe()) # summary statistics for the popularity column
+print(df[["danceability"]].describe()) # detailed statistics for danceability only
+print(df[["energy"]].describe()) # detailed statistics for energy only
+print(df[["tempo"]].describe()) # detailed statistics for tempo only
+
 
 top_songs = df[['name', 'popularity']].sort_values(by='popularity', ascending=False) # top songs by popularity
 print(top_songs.head(10)) # display top 10 popular songs
@@ -30,3 +35,13 @@ plt.title('top 10 popular songs')
 plt.tight_layout()
 
 plt.savefig('images/top_10_songs.png') # save the figure png 
+
+# popularity distribution visualization
+plt.figure(figsize=(10,5)) # set figure size 
+plt.hist(df['popularity'], bins=30, color='blue', alpha=0.7) # create histogram
+plt.xlabel('Popularity') # set x-label
+plt.ylabel('Frequency') # set y-label 
+plt.title('Popularity Distribution') # set title
+plt.tight_layout() # adjust layout 
+
+plt.savefig('images/popularity_distribution.png') # save the figure png
