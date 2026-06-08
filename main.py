@@ -43,5 +43,16 @@ plt.xlabel('Popularity') # set x-label
 plt.ylabel('Frequency') # set y-label 
 plt.title('Popularity Distribution') # set title
 plt.tight_layout() # adjust layout 
-
 plt.savefig('images/popularity_distribution.png') # save the figure png
+
+# popularity vs danceability
+plt.figure(figsize=(10,5))
+plt.scatter(df['danceability'], df['popularity'], alpha=0.3)
+
+plt.xlabel('Danceability')
+plt.ylabel('Popularity')
+plt.title('Popularity vs Danceability')
+
+plt.tight_layout()
+plt.savefig('images/popularity_vs_danceability.png')
+
