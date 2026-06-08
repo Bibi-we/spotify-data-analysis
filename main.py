@@ -45,7 +45,7 @@ plt.title('Popularity Distribution') # set title
 plt.tight_layout() # adjust layout 
 plt.savefig('images/popularity_distribution.png') # save the figure png
 
-# popularity vs danceability
+# popularity vs danceability scatterplot 
 plt.figure(figsize=(10,5))
 plt.scatter(df['danceability'], df['popularity'], alpha=0.3)
 
@@ -56,3 +56,13 @@ plt.title('Popularity vs Danceability')
 plt.tight_layout()
 plt.savefig('images/popularity_vs_danceability.png')
 
+# popularity vs energy scatterplot
+plt.figure(figsize=(10,5))
+plt.scatter(df['energy'], df['popularity'], alpha=0.3)
+
+plt.xlabel('Energy')
+plt.ylabel('Popularity')
+plt.title('Popularity vs Energy')
+
+plt.tight_layout()
+plt.savefig('images/popularity_vs_energy.png') 
