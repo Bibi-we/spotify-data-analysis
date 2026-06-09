@@ -86,4 +86,77 @@ plt.title('Correlation Heatmap')
 plt.tight_layout()
 plt.savefig('images/correlation_heatmap.png')
 
-plt.show() 
+
+
+# artist analysis/ Top artists by Average Popularity 
+
+artist_popularity = (
+    df.groupby('artists')['popularity'] # groups all songs by artist
+    .mean() # calculates average popularity
+    .sort_values(ascending=False) # sorts values in descending order
+)
+
+print(artist_popularity.head(10)) # display top 10 artists by average popularity 
+
+# visualize top 10 artists by average popularity
+top_10_artists = artist_popularity.head(10) # select top 10 artists 
+
+plt.figure(figsize=(10,5))
+top_10_artists.sort_values().plot(kind='barh')
+
+plt.xlabel('Average Popularity')
+plt.ylabel('Artist')
+plt.title('Top 10 Artists by Average Popularity')
+
+plt.tight_layout()
+
+plt.savefig('images/top_10_artists.png')
+
+# artists with the most songs 
+
+artist_song_count = (
+    df.groupby('artists')['name']
+    .count() # counts number of songs for each artist
+    .sort_values(ascending=False)
+)
+
+print(artist_song_count.head(10)) # display top 10 artists by number of songs
+
+# visualize top 10 artists by number of songs
+top_artists_songs = artist_song_count.head(10)# select top 10 artists by number of songs
+
+plt.figure(figsize=(10,5))
+
+top_artists_songs.sort_values().plot(kind='barh') 
+
+plt.xlabel('Number of Songs')
+plt.ylabel('Artist')
+plt.title('Top 10 Artists by Number of Songs')
+
+plt.tight_layout()
+
+plt.savefig('images/top_10_artists_by_songs.png')
+
+# Average Energy by Artist
+artist_energy = (
+    df.groupby('artists')['energy']
+    .mean()
+    .sort_values(ascending=False)
+)
+
+print(artist_energy.head(10)) # display top 10 artists by average energy
+
+# visualize top 10 artists by average energy
+top_artist_energy = artist_energy.head(10)
+
+plt.figure(figsize=(10,5))
+
+top_artist_energy.sort_values().plot(kind='barh')
+
+plt.xlabel('Average Energy')
+plt.ylabel('Artist')
+plt.title('Top 10 Artists by Average Energy')
+
+plt.tight_layout()
+
+plt.savefig('images/top_10_artists_by_energy.png') 
