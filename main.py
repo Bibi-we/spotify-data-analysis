@@ -2,6 +2,8 @@ import pandas as pd
 
 import matplotlib.pyplot as plt 
 
+import seaborn as sns 
+
 df = pd.read_csv('data/tracks.csv')
 
 print(df.head()) # first five rows 
@@ -66,3 +68,22 @@ plt.title('Popularity vs Energy')
 
 plt.tight_layout()
 plt.savefig('images/popularity_vs_energy.png') 
+
+# correlation analysis & Matrix 
+
+correlation_matrix = df[
+    ['popularity', 'danceability', 'energy', 'tempo']
+].corr() # calculate correlation matrix
+
+print(correlation_matrix) # display correlation matrix 
+
+
+# correlation heatmap
+plt.figure(figsize=(8, 6))
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt=".2f")
+plt.title('Correlation Heatmap')
+
+plt.tight_layout()
+plt.savefig('images/correlation_heatmap.png')
+
+plt.show() 
