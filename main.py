@@ -4,39 +4,110 @@ import matplotlib.pyplot as plt
 
 import seaborn as sns 
 
-df = pd.read_csv('data/tracks.csv')
-
-print(df.head()) # first five rows 
-
-print(df.shape) # number of rows and columns
-
-print(df.columns) # column names 
-
-print(df.dtypes) # data types of each column
-
-print(df.isnull().sum()) # missing values in each column
-
-# exploring the data further 
-print(df['popularity'].describe()) # summary statistics for the popularity column
-print(df[["danceability"]].describe()) # detailed statistics for danceability only
-print(df[["energy"]].describe()) # detailed statistics for energy only
-print(df[["tempo"]].describe()) # detailed statistics for tempo only
+import sqlite3 
 
 
-top_songs = df[['name', 'popularity']].sort_values(by='popularity', ascending=False) # top songs by popularity
-print(top_songs.head(10)) # display top 10 popular songs
+df = pd.read_csv('data/tracks.csv') # load the dataset 
+# =================================
+# SQL ANALYSIS 
+# =================================
+conn = sqlite3.connect('data/tracks.db')
+df.to_sql('tracks', conn, if_exists='replace', index=False) 
+
+# Top 10 songs by popularity using SQL
+
+query = """
+SELECT name, popularity
+FROM tracks
+ORDER BY popularity DESC
+LIMIT 10
+"""
+
+top_songs_sql = pd.read_sql_query(query, conn)
+
+print(top_songs_sql)
+
+# Top artists by average popularity
+
+query = """
+SELECT artists,
+       AVG(popularity) AS avg_popularity
+FROM tracks
+GROUP BY artists
+ORDER BY avg_popularity DESC
+LIMIT 10
+"""
+
+top_artists_sql = pd.read_sql_query(query, conn)
+
+print(top_artists_sql)
+
+# top 10 Artists with most songs
+
+query = """
+SELECT artists,
+       COUNT(*) AS song_count
+FROM tracks
+GROUP BY artists
+ORDER BY song_count DESC
+LIMIT 10
+"""
+
+artist_song_count_sql = pd.read_sql_query(query, conn)
+
+print(artist_song_count_sql)
+
+# top 10 Artists by average energy
+
+query = """
+SELECT artists,
+       AVG(energy) AS avg_energy
+FROM tracks
+GROUP BY artists
+ORDER BY avg_energy DESC
+LIMIT 10
+"""
+
+artist_energy_sql = pd.read_sql_query(query, conn)
+
+print(artist_energy_sql)
+
+
+
+conn.close() 
+
+
+# print(df.head()) # first five rows 
+
+# print(df.shape) # number of rows and columns
+
+# print(df.columns) # column names 
+
+# print(df.dtypes) # data types of each column
+
+# print(df.isnull().sum()) # missing values in each column
+
+# # exploring the data further 
+# print(df['popularity'].describe()) # summary statistics for the popularity column
+# print(df[["danceability"]].describe()) # detailed statistics for danceability only
+# print(df[["energy"]].describe()) # detailed statistics for energy only
+# print(df[["tempo"]].describe()) # detailed statistics for tempo only
+
+
+# top_songs = df[['name', 'popularity']].sort_values(by='popularity', ascending=False) # top songs by popularity
+# print(top_songs.head(10)) # display top 10 popular songs
 
 # visualize the top 10 popular song 
 
-top_10  = top_songs.head(10)
+# top_10  = top_songs.head(10)
 
-plt.figure(figsize=(10,5))
-plt.barh(top_10['name'], top_10['popularity'])
-plt.xlabel('popularity')
-plt.title('top 10 popular songs')
-plt.tight_layout()
+# plt.figure(figsize=(10,5))
+# plt.barh(top_10['name'], top_10['popularity'])
+# plt.xlabel('popularity')
+# plt.title('top 10 popular songs')
+# plt.tight_layout()
 
-plt.savefig('images/top_10_songs.png') # save the figure png 
+# plt.savefig('images/top_10_songs.png') # save the figure png 
 
 # popularity distribution visualization
 plt.figure(figsize=(10,5)) # set figure size 

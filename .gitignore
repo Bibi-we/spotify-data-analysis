@@ -6,3 +6,5 @@ __pycache__/
 data/
 *.csv
 *.json
+spotify_tracks.db 
+*.db 
