@@ -27,6 +27,9 @@ top_songs_sql = pd.read_sql_query(query, conn)
 
 print(top_songs_sql)
 
+# Export to CSV
+top_songs_sql.to_csv('output/top_songs_by_popularity.csv', index=False) 
+
 # Top artists by average popularity
 
 query = """
@@ -41,6 +44,10 @@ LIMIT 10
 top_artists_sql = pd.read_sql_query(query, conn)
 
 print(top_artists_sql)
+
+# Export to CSV 
+top_artists_sql.to_csv('output/top_artists_by_popularity.csv', index=False)
+
 
 # top 10 Artists with most songs
 
@@ -57,6 +64,9 @@ artist_song_count_sql = pd.read_sql_query(query, conn)
 
 print(artist_song_count_sql)
 
+# Export to CSV
+artist_song_count_sql.to_csv('output/top_artists_by_song_count.csv', index=False)
+
 # top 10 Artists by average energy
 
 query = """
@@ -71,6 +81,9 @@ LIMIT 10
 artist_energy_sql = pd.read_sql_query(query, conn)
 
 print(artist_energy_sql)
+
+# Export to CSV 
+artist_energy_sql.to_csv('output/top_artists_by_energy.csv', index=False) 
 
 
 
