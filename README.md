@@ -71,3 +71,8 @@ Skills Demonstrated
 - Git branching workflow
 - Pull requests and merge management
 - Python scripting
+
+
+## Tableau Dashboard
+
+¡[Tableau Dahboard](images/tableau_dashboard.png)
